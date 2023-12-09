@@ -20,6 +20,7 @@ The essence of this project lies in leveraging Tails OS's unique feature of not 
 1. **System Requirements**:
    - Tested on Pop!OS 22.04 as of 9 December 2023.
    - Ensure `tails-i386-1.3.iso` is downloaded and placed in the root directory of the project.
+   - Tested on this file [tails-i386-1.3](https://archive.org/details/tails-i386-1.3) with SHA256: 587E06C70420E486FA441F872DB5240FE24C3A4F7ACB4F003FDDAEB36D8C6DF7.
 
 2. **Installation of Dependencies**:
    - Run `sudo ./install_dependencies.sh` to install necessary tools for handling ISO files.
