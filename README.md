@@ -41,6 +41,23 @@ This project provides two primary folders for customization, each serving a dist
 
 2. **tails-squashfs**: This folder contains the SquashFS filesystem, extracted from the original Tails ISO. SquashFS is a compressed, read-only filesystem used in Tails OS. Modifications in this folder are more in-depth and relate to the OS's core functionalities and structure.
 
+### Customization Process
+To ensure a streamlined and consistent customization process, all modifications should be made through the `customize.sh` script. This script acts as a central point of control for customizations, ensuring that changes are applied systematically and coherently across the Tails OS.
+
+#### Why Use `customize.sh`?
+- **Centralized Management**: `customize.sh` provides a single point of reference for all customizations. This makes tracking and managing changes more straightforward, reducing the risk of conflicting modifications.
+- **Scripted Automation**: The script automates repetitive tasks, ensuring that customizations are applied uniformly across all relevant files and directories. This automation minimizes the risk of human error during the customization process.
+- **Ease of Maintenance**: Future updates or modifications can be easily integrated by updating the `customize.sh` script. This approach simplifies maintaining and updating the customized OS.
+- **Consistency and Reliability**: By centralizing customizations in one script, the consistency and reliability of the custom OS build are enhanced. It ensures that all parts of the OS are modified in sync, maintaining the overall integrity of the system.
+
+#### How to Customize Using `customize.sh`
+1. Open the `customize.sh` script in your preferred text editor.
+2. Add or modify the commands within the script to apply your desired customizations.
+3. Save your changes and run the script as part of the build process to apply these customizations.
+
+### Important Note
+While `customize.sh` is designed to handle a broad range of customizations, it is essential to have a basic understanding of shell scripting and the Tails OS architecture. This knowledge is crucial for making effective and safe modifications to the OS.
+
 ### Customization in Practice
 
 #### Customizing `customized_tails`
