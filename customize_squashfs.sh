@@ -5,9 +5,9 @@
 # because otherwise you'll be network-blocked.
 
 # to disable GUI (but leave a tty terminal):
-sudo apt-get purge xorg*
-sudo apt-get purge gnome*
-sudo apt-get autoremove
+sudo apt-get purge xorg* -y
+sudo apt-get purge gnome* -y
+sudo apt-get autoremove -y
 sudo apt-get clean
 
 # Create the new user and set the password

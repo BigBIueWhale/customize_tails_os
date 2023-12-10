@@ -1,24 +1,24 @@
 # Customize Tails OS
 
 ## Overview
-This project aims to create a customized version of the Tails OS, known for its strong emphasis on security and privacy. Our version, however, shifts focus from security to functionality and reliability. The primary objective is to develop a Tails OS variant without a GUI, capable of running on internal hard drives or SSDs, in addition to external thumb drives. This contrasts with the standard Tails OS, which is designed exclusively for external drive use.
+This project aims to create a customized version of the Tails OS, known for its strong emphasis on security and privacy. Our version, however, shifts focus from security to functionality and reliability. The primary objective is to develop a Tails OS variant without a GUI that runs a single program- an app-container-os.
 
 The essence of this project lies in leveraging Tails OS's unique feature of not storing data on the disk. This property is exploited to embed custom software into the Tails bootable medium, akin to a hardware-embedded Docker container. The result is a highly reliable system where, upon physical restart, the software functions as if it's running for the first time.
 
-## Key Features
-- **No GUI- Planned**: Stripped-down version of Tails OS without a graphical user interface.
-- **Flexible Boot Options**: Custom Tails OS can boot from internal SSD/HDD or external thumb drives.
-- **Run program at boot- Planned**: Runs a custom program at boot, designed for specific operational requirements.
-- **Custom driver- Planned**: Load a .ko file permanently and by default into the OS
-- **Software Reliability**: System reset ensures the software operates consistently like new.
+This kind of OS is watchdog-friendly. It can be killed at any moment with minimal risk of corruption, which allows for high reliability.
 
 ## Implemented Customizations
 - **Boot from Internal SSD/HDD**: Modifications to allow the OS to live-boot from internal storage devices.
 - **Disabled Security Overheads**: Certain security features have been disabled to prioritize functionality for specific use cases.
+- **Add default root user**: Username: "user", password: "password".
+- **No GUI- only tty terminal**: Stripped-down version of Tails OS without a graphical user interface.
+- **Disable startup delay- Planned**: Make the OS-app-container recover faster from a watchdog reset.
+- **Run program at boot- Planned**: Runs a custom program at boot, designed for specific operational requirements.
+- **Custom driver- Planned**: Load a .ko file permanently and by default into the OS
 
 ## Usage Instructions
 1. **System Requirements**:
-   - Tested on Pop!OS 22.04 as of 9 December 2023.
+   - Tested on Pop!OS 22.04 as of 10 December 2023.
    - Ensure `tails-i386-1.3.iso` is downloaded and placed in the root directory of the project.
    - Tested on this file [tails-i386-1.3](https://archive.org/details/tails-i386-1.3) with SHA256: 587E06C70420E486FA441F872DB5240FE24C3A4F7ACB4F003FDDAEB36D8C6DF7.
 
