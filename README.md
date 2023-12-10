@@ -43,7 +43,7 @@ This project provides two primary folders for customization, each serving a dist
 2. **tails-squashfs**: This folder contains the SquashFS filesystem, extracted from the original Tails ISO. SquashFS is a compressed, read-only filesystem used in Tails OS. Modifications in this folder are more in-depth and relate to the OS's core functionalities and structure. Use `enter_system_to_make_changes.sh` to remove specific packages that you don't want. To add packages, you'll need to do these steps on Tails OS itself instead of using pop!os.
 
 ### Customization Process
-To ensure a streamlined and consistent customization process, all modifications should be made through the `customize.sh` script. This script acts as a central point of control for customizations, ensuring that changes are applied systematically and coherently across the Tails OS.
+To ensure a streamlined and consistent customization process, Modifications ti the ISO file structure (and bootloader) should be made to the `customize.sh` script. Modifications to the Tails filesystem (packages, users, files) should be done through `customize_squashfs.sh` which runs as if we're in the OS itself (because of `chroot` command in customize.sh).
 
 ### Customization in Practice
 
