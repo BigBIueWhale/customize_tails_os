@@ -40,7 +40,7 @@ This project provides two primary folders for customization, each serving a dist
 
 1. **customized_tails**: This folder is a direct copy of the original Tails ISO's file structure. It is the primary location where the bootable file structure of the Tails OS resides. Customizations in this folder directly impact the boot process and the basic setup of the OS.
 
-2. **tails-squashfs**: This folder contains the SquashFS filesystem, extracted from the original Tails ISO. SquashFS is a compressed, read-only filesystem used in Tails OS. Modifications in this folder are more in-depth and relate to the OS's core functionalities and structure.
+2. **tails-squashfs**: This folder contains the SquashFS filesystem, extracted from the original Tails ISO. SquashFS is a compressed, read-only filesystem used in Tails OS. Modifications in this folder are more in-depth and relate to the OS's core functionalities and structure. Use `enter_system_to_make_changes.sh` to remove specific packages that you don't want. To add packages, you'll need to do these steps on Tails OS itself instead of using pop!os.
 
 ### Customization Process
 To ensure a streamlined and consistent customization process, all modifications should be made through the `customize.sh` script. This script acts as a central point of control for customizations, ensuring that changes are applied systematically and coherently across the Tails OS.

@@ -1,2 +1,3 @@
-sudo rm -rf ./build/
+#!/bin/bash
 
+sudo rm -rf ./build/
