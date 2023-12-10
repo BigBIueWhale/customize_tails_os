@@ -9,6 +9,23 @@ find ./build/customized_tails/ -type f -name '*.cfg' | while read file; do
     sed -i 's/config live-media=removable apparmor=1/config ive-media=removable apparmor=0/g' "$file"
 done
 
+# Define the path to the menu.cfg file
+CONFIG_FILE=./build/customized_tails/isolinux/menu.cfg
+# Check if the configuration file exists
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "Error: Configuration file not found at $CONFIG_FILE"
+    exit 1
+fi
+# Change the timeout setting to minimal (0 is infinite).
+# Unit is 0.1 seconds.
+sed -i 's/timeout [0-9]*/timeout 1/' "$CONFIG_FILE"
+# Check if sed command was successful
+if [ $? -eq 0 ]; then
+    echo "Successfully updated the timeout setting in $CONFIG_FILE"
+else
+    echo "Failed to update the timeout setting in $CONFIG_FILE"
+fi
+
 # Define the path to the script and the target chroot directory
 script_path="./customize_squashfs.sh"
 chroot_directory="./build/tails-squashfs/"

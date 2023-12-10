@@ -12,7 +12,7 @@ This kind of OS is watchdog-friendly. It can be killed at any moment with minima
 - **Disabled Security Overheads**: Certain security features have been disabled to prioritize functionality for specific use cases.
 - **Add default root user**: Username: "user", password: "password".
 - **No GUI- only tty terminal**: Stripped-down version of Tails OS without a graphical user interface.
-- **Disable startup delay- Planned**: Make the OS-app-container recover faster from a watchdog reset.
+- **Disable startup delay**: Make the OS-app-container recover faster from a watchdog reset.
 - **Run program at boot- Planned**: Runs a custom program at boot, designed for specific operational requirements.
 - **Custom driver- Planned**: Load a .ko file permanently and by default into the OS
 
