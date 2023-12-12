@@ -20,7 +20,7 @@ This kind of OS is watchdog-friendly. It can be killed at any moment with minima
 1. **System Requirements**:
    - Tested on Pop!OS 22.04 as of 10 December 2023.
    - Ensure `tails-i386-1.3.iso` is downloaded and placed in the root directory of the project.
-   - Tested on this file [tails-i386-1.3](https://archive.org/details/tails-i386-1.3) with SHA256: 587E06C70420E486FA441F872DB5240FE24C3A4F7ACB4F003FDDAEB36D8C6DF7.
+   - Tested on the last version of 32-bit Tails (from 2017) [tails-i386-1.3](https://iso-history.tails.boum.org/tails-i386-2.12/) with SHA256: 4228d1f88b999a6dee4c4bebd95e983e852cad59ad834eed72f8897ac278f5c4.
 
 2. **Installation of Dependencies**:
    - Run `sudo ./install_dependencies.sh` to install necessary tools for handling ISO files.
