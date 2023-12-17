@@ -2,7 +2,7 @@
 
 # Define paths
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
-ISO_PATH="$SCRIPT_DIR/tails-i386-1.3.iso"
+ISO_PATH="$SCRIPT_DIR/tails-i386-2.12.iso"
 MOUNT_DIR="$SCRIPT_DIR/build/tails-iso"
 SQUASHFS_DIR="$SCRIPT_DIR/build/tails-squashfs"
 NEW_TAILS_DIR="$SCRIPT_DIR/build/customized_tails"
