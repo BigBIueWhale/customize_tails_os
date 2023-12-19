@@ -40,9 +40,9 @@ This kind of OS is watchdog-friendly. It can be killed at any moment with minima
 ### Overview of Customization Folders
 This project provides two primary folders for customization, each serving a distinct purpose in the customization process of Tails OS:
 
-1. **customized_tails**: This folder is a direct copy of the original Tails ISO's file structure. It is the primary location where the bootable file structure of the Tails OS resides. Customizations in this folder directly impact the boot process and the basic setup of the OS.
+1. **build/customized_tails**: This folder is a direct copy of the original Tails ISO's file structure. It is the primary location where the bootable file structure of the Tails OS resides. Customizations in this folder directly impact the boot process and the basic setup of the OS.
 
-2. **tails-squashfs**: This folder contains the SquashFS filesystem, extracted from the original Tails ISO. SquashFS is a compressed, read-only filesystem used in Tails OS. Modifications in this folder are more in-depth and relate to the OS's core functionalities and structure. Use `sudo chroot ./build/tails-squashfs/` to enter a terminal where you can remove specific packages that you don't want (using `sudo apt-get remove`).
+2. **build/tails-squashfs**: This folder contains the SquashFS filesystem, extracted from the original Tails ISO. SquashFS is a compressed, read-only filesystem used in Tails OS. Modifications in this folder are more in-depth and relate to the OS's core functionalities and structure. Use `sudo chroot ./build/tails-squashfs/` to enter a terminal where you can remove specific packages that you don't want (using `sudo apt-get remove`).
 
 3. **packages/downloaded**: Delete packages/downloaded and then do `cd packages`. Run `python3 update_package_list.py` and then `python3 download_recursive_deps.py build-essential gcc make perl add any additional required packages here` assuming you're using `Python 3.10.12` on Pop!OS 22.04. By default the repo comes with build-essential and its dependencies for `tails-i386-2.12.iso`. If you're using a different OS or a different version, you'll have to customize `update_package_list.py`.
 
