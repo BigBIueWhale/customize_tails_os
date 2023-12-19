@@ -44,7 +44,7 @@ This project provides two primary folders for customization, each serving a dist
 
 2. **build/tails-squashfs**: This folder contains the SquashFS filesystem, extracted from the original Tails ISO. SquashFS is a compressed, read-only filesystem used in Tails OS. Modifications in this folder are more in-depth and relate to the OS's core functionalities and structure. Use `sudo chroot ./build/tails-squashfs/` to enter a terminal where you can remove specific packages that you don't want (using `sudo apt-get remove`).
 
-3. **packages/downloaded**: Delete packages/downloaded and then do `cd packages`. Run `python3 update_package_list.py` and then `python3 download_recursive_deps.py build-essential gcc make perl add any additional required packages here` assuming you're using `Python 3.10.12` on Pop!OS 22.04. By default the repo comes with build-essential and its dependencies for `tails-i386-2.12.iso`. If you're using a different OS or a different version, you'll have to customize `update_package_list.py`.
+3. **packages/downloaded**: Delete packages/downloaded and then do `cd packages`. Run `python3 update_package_list.py` and then `python3 download_recursive_deps.py build-essential gcc make perl add any additional required packages here` assuming you're using `Python 3.10.12` on Pop!OS 22.04. By default this repo already comes with the required .deb packages for installing build-essential and its dependencies, for `tails-i386-2.12.iso`. If you're using a different OS or a different version, you'll have to delete packages/downloaded before downloading any packages, and you'll also need to customize `update_package_list.py` to point to your repo (for example, change `2.12/debian/dists/jessie/main` to `5.5/debian/dists/buster/main`). Also, if you're building a 64-bit Tails OS image you'll need to change `['i386', 'all']` to `['amd64', 'all']` in `update_package_list.py`.
 
 4. **run_at_boot.sh**: Planned- will allow you to perform actions at boot time
 
@@ -53,7 +53,7 @@ This project provides two primary folders for customization, each serving a dist
 6. **files_to_include_in_os**: Planned- The contents of this folder will be placed in the root directory of the tails-squashfs. For example: you can put an executable file here, and have run_at_boot.sh call: "/my_executable" at startup.
 
 ### Customization Process
-To ensure a streamlined and consistent customization process, Modifications ti the ISO file structure (and bootloader) should be made to the `customize.sh` script. Modifications to the Tails filesystem (packages, users, files) should be done through `customize_squashfs.sh` which runs as if we're in the OS itself (because of `chroot` command in customize.sh).
+To ensure a streamlined and consistent customization process, Modifications the ISO file structure (and bootloader) should be made to the `customize.sh` script. Modifications to the Tails filesystem (packages, users, files) should be done through `customize_squashfs.sh` which runs as if we're in the OS itself (because of `chroot` command in customize.sh).
 
 ### Customization in Practice
 
