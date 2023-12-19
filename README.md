@@ -19,8 +19,8 @@ This kind of OS is watchdog-friendly. It can be killed at any moment with minima
 ## Usage Instructions
 1. **System Requirements**:
    - Tested on Pop!OS 22.04 as of 10 December 2023.
-   - Ensure `tails-i386-1.3.iso` is downloaded and placed in the root directory of the project.
-   - Tested on the last version of 32-bit Tails (from 2017) [tails-i386-1.3](https://iso-history.tails.boum.org/tails-i386-2.12/) with SHA256: 4228d1f88b999a6dee4c4bebd95e983e852cad59ad834eed72f8897ac278f5c4.
+   - Ensure `tails-i386-2.12.iso` is downloaded and placed in the root directory of the project.
+   - Tested on the last version of 32-bit Tails (from 2017) [tails-i386-2.12](https://iso-history.tails.boum.org/tails-i386-2.12/) with SHA256: 4228d1f88b999a6dee4c4bebd95e983e852cad59ad834eed72f8897ac278f5c4.
 
 2. **Installation of Dependencies**:
    - Run `sudo ./install_dependencies.sh` to install necessary tools for handling ISO files.
@@ -30,7 +30,7 @@ This kind of OS is watchdog-friendly. It can be killed at any moment with minima
    - The script sequentially runs `clean.sh`, `extract_iso.sh`, `customize.sh`, and `package_iso.sh`.
 
 4. **Input and Output**:
-   - **Input**: The script expects `tails-i386-1.3.iso` in the project's root directory.
+   - **Input**: The script expects `tails-i386-2.12.iso` in the project's root directory.
    - **Output**: The customized Tails OS ISO is output as `custom_tails.iso` in the `./build/` directory.
 
 ## Customize
