@@ -3,6 +3,7 @@ import json
 import requests
 from debian.debfile import DebFile
 from typing import Set
+import argparse
 
 # Directory for downloaded files
 download_dir = "./downloaded/"
@@ -64,6 +65,13 @@ def fetch_dependencies_recursive(initial_name, visited = None):
         dep_name = dep.split(' ')[0]
         fetch_dependencies_recursive(dep_name, visited)
 
+def main():
+    parser = argparse.ArgumentParser(description="Fetch dependencies for given Debian packages.")
+    parser.add_argument('packages', nargs='+', help='List of Debian packages to fetch dependencies for')
+    args = parser.parse_args()
+
+    for package_name in args.packages:
+        fetch_dependencies_recursive(package_name)
+
 if __name__ == "__main__":
-    package_name = "build-essential"  # Example package
-    fetch_dependencies_recursive(package_name)
+    main()
