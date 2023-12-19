@@ -38,9 +38,11 @@ def fetch_dependency(dep_name, visited: Set[str]) -> [str]:
     response = requests.get(url)
     file_name = url.split('/')[-1]
     file_path = os.path.join(download_dir, file_name)
-
-    with open(file_path, 'wb') as file:
-        file.write(response.content)
+    if os.path.isfile(file_path):
+        print(f"{file_name} already exists")
+    else:
+        with open(file_path, 'wb') as file:
+            file.write(response.content)
 
     deb = DebFile(file_path)
     # Use get() to retrieve 'Depends' value or None if key doesn't exist

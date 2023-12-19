@@ -2,6 +2,7 @@ import gzip
 import requests
 import json
 import os
+from typing import Set
 
 def download_packages_file(url, local_path):
     """Download the Packages.gz file."""
@@ -35,10 +36,10 @@ def parse_packages_file(file_path):
     return packages
 
 def get_deb_urls(packages, base_url):
-    """Return a list of URLs for .deb files with i386 architecture."""
+    """Return a list of URLs for .deb files with i386 architecture or architecture-independent."""
     deb_urls = []
     for package in packages:
-        if package.get('Architecture') == 'i386' and package.get('Filename', '').endswith('.deb'):
+        if package.get('Architecture') in ['i386', 'all'] and package.get('Filename', '').endswith('.deb'):
             deb_urls.append(base_url + package['Filename'])
     return deb_urls
 
@@ -77,7 +78,7 @@ def main():
     ]
     base_url = "http://tagged.snapshots.deb.tails.boum.org/2.12/debian/"
 
-    all_deb_urls = []
+    all_deb_urls: Set[str] = set()
 
     for packages_url in packages_urls:
         print(f"Fetching {packages_url}")
@@ -91,11 +92,11 @@ def main():
 
         # Get .deb URLs
         deb_urls = get_deb_urls(packages, base_url)
-        all_deb_urls.extend(deb_urls)
+        all_deb_urls.update(deb_urls)
 
     # Save the URLs to a JSON file
     with open('deb_urls.json', 'w') as json_file:
-        json.dump(all_deb_urls, json_file)
+        json.dump([*all_deb_urls], json_file)
 
 if __name__ == "__main__":
     main()
