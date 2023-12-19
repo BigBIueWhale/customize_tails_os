@@ -7,6 +7,23 @@
 # to disable GUI (but leave a tty terminal):
 sudo apt-get purge xorg* -y
 sudo apt-get purge gnome* -y
+
+# Check if the downloaded directory exists and contains .deb files
+downloaded_path="/downloaded"
+deb_files=$(find "$downloaded_path" -maxdepth 1 -type f -name "*.deb")
+
+if [ -d "$downloaded_path" ] && [ -n "$deb_files" ]; then
+    # Install .deb packages
+    sudo dpkg -i /downloaded/*.deb
+    echo "Debian packages installed successfully."
+else
+    if [ ! -d "$downloaded_path" ]; then
+        echo "Error: Downloaded directory not found."
+    elif [ -z "$deb_files" ]; then
+        echo "Error: No .deb files found in the downloaded directory."
+    fi
+fi
+
 sudo apt-get autoremove -y
 sudo apt-get clean
 
