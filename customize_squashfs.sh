@@ -37,6 +37,29 @@ echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 echo "User 'user' created and added to sudoers."
 
 
+echo Compiling user-provided executables from files_to_include_in_os
+# Save the current working directory
+original_dir=$(pwd)
+
+# Change to the directory of program1
+cd /files_to_include_in_os/program1
+# Call the compile script
+./compile.sh
+
+# Change to the directory of program1
+cd /files_to_include_in_os/program2
+# Call the compile script
+./compile.sh
+
+# Return to the original directory
+cd "$original_dir"
+
+# TODO: Add any .ko driver files compilation here
+# so that the .ko file is compatible with the specific linux kernel
+# version of this Tails OS.
+# Then programmatically copy the resulting .ko file(s) into
+# /files_to_include_in_os/driver_files
+
 # Insert the command to execute run_at_boot.sh before the 'exit 0' line in /etc/rc.local
 sed -i '/^exit 0/i /files_to_include_in_os/run_at_boot.sh' /etc/rc.local
 
