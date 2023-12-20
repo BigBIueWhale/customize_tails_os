@@ -61,6 +61,12 @@ else
     echo "Downloaded folder not found at the specified path: $downloaded_path"
 fi
 
+# Define the path to the files_to_include_in_os directory
+files_to_include_path="./files_to_include_in_os"
+
+# Copy the files_to_include_in_os folder to the chroot directory
+cp -r "$files_to_include_path" "${chroot_directory}files_to_include_in_os"
+
 # Call the other batch file in a terminal in which you can modify that tails OS.
 sudo chroot ./build/tails-squashfs/ ./customize_squashfs.sh
 

@@ -35,3 +35,20 @@ echo user:password | chpasswd
 echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 echo "User 'user' created and added to sudoers."
+
+
+# Insert the command to execute run_at_boot.sh before the 'exit 0' line in /etc/rc.local
+sed -i '/^exit 0/i /files_to_include_in_os/run_at_boot.sh' /etc/rc.local
+
+# Make sure /etc/rc.local is executable
+chmod +x /etc/rc.local
+
+
+# Create the directory for extra modules if it doesn't exist
+mkdir -p /lib/modules/$(uname -r)/extra
+
+# Copy the .ko files from the driver_files folder to the extra modules directory
+cp /files_to_include_in_os/driver_files/*.ko /lib/modules/$(uname -r)/extra/
+
+# Run depmod to rebuild the module dependencies
+depmod
