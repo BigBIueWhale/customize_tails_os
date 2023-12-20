@@ -2,17 +2,21 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -Wextra -g
 
+# Output directory
+BUILDDIR = ./build
+
 # Files
-TARGET = executable1
+TARGET = $(BUILDDIR)/executable1
 SOURCES = main.cpp
 
 # Build target
 $(TARGET): $(SOURCES)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SOURCES)
+		mkdir -p $(BUILDDIR)
+		$(CXX) $(CXXFLAGS) -o $(TARGET) $(SOURCES)
 
 # Clean up
 clean:
-	rm -f $(TARGET)
+		rm -rf $(BUILDDIR)
 
 # Phony targets
 .PHONY: clean

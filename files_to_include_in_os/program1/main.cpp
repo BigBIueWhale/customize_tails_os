@@ -7,6 +7,7 @@
 std::atomic<bool> keepRunning(true);
 
 void signalHandler(int signum) {
+    static_cast<void>(signum);
     // Signal handler to set the atomic flag to false
     keepRunning = false;
 }
