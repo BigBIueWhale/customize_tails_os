@@ -4,9 +4,13 @@
 # If you want to install packages here, run the entire customization process inside of Tails OS itself
 # because otherwise you'll be network-blocked.
 
-# to disable GUI (but leave a tty terminal):
-sudo apt-get purge xorg* -y
-sudo apt-get purge gnome* -y
+# Set DISABLE_GUI to 1 to disable GUI, or 0 to keep it enabled
+DISABLE_GUI=1
+if [ "$DISABLE_GUI" -eq 1 ]; then
+    # to disable GUI (but leave a tty terminal):
+    sudo apt-get purge xorg* -y
+    sudo apt-get purge gnome* -y
+fi
 
 # Check if the downloaded directory exists and contains .deb files
 downloaded_path="/downloaded"
