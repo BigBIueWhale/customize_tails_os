@@ -51,7 +51,7 @@ APPS_TO_REMOVE=(
 
 # Remove the applications
 for app in "${APPS_TO_REMOVE[@]}"; do
-  echo "Removing $app ..."
+  echo "Removing bloatware $app ..."
   sudo apt-get remove --purge -y $app
 done
 
