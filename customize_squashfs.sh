@@ -5,7 +5,7 @@
 # because otherwise you'll be network-blocked.
 
 # Set DISABLE_GUI to 1 to disable GUI, or 0 to keep it enabled
-DISABLE_GUI=0
+DISABLE_GUI=1
 if [ "$DISABLE_GUI" -eq 1 ]; then
     # to disable GUI (but leave a tty terminal):
     sudo apt-get purge xorg* -y
@@ -39,6 +39,21 @@ else
         echo "Error: No .deb files found in the downloaded directory."
     fi
 fi
+
+# Define the applications to remove
+APPS_TO_REMOVE=(
+  "torbrowser-launcher"
+  "icedove"            # Icedove may now be known as Thunderbird in newer versions.
+  "pidgin"             # Assuming pidgin is the package name.
+  "keepassx"           # KeePassX package name.
+  "gnome-terminal"     # Terminal might have a different package name like 'x-terminal-emulator'.
+)
+
+# Remove the applications
+for app in "${APPS_TO_REMOVE[@]}"; do
+  echo "Removing $app ..."
+  sudo apt-get remove --purge -y $app
+done
 
 sudo apt-get autoremove -y
 sudo apt-get clean
