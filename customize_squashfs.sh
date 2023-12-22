@@ -5,11 +5,23 @@
 # because otherwise you'll be network-blocked.
 
 # Set DISABLE_GUI to 1 to disable GUI, or 0 to keep it enabled
-DISABLE_GUI=1
+DISABLE_GUI=0
 if [ "$DISABLE_GUI" -eq 1 ]; then
     # to disable GUI (but leave a tty terminal):
     sudo apt-get purge xorg* -y
     sudo apt-get purge gnome* -y
+
+    # Only create a default root user if GUI is disabled
+    # because this interferes with the welcome screen of the GUI.
+
+    # Create the new user and set the password
+    useradd user
+    echo user:password | chpasswd
+
+    # Add the user to the sudoers file without requiring a password for sudo commands
+    echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+    echo "User 'user' created and added to sudoers."
 fi
 
 # Check if the downloaded directory exists and contains .deb files
@@ -30,16 +42,6 @@ fi
 
 sudo apt-get autoremove -y
 sudo apt-get clean
-
-# Create the new user and set the password
-useradd user
-echo user:password | chpasswd
-
-# Add the user to the sudoers file without requiring a password for sudo commands
-echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-echo "User 'user' created and added to sudoers."
-
 
 echo Compiling user-provided executables from files_to_include_in_os
 # Save the current working directory
