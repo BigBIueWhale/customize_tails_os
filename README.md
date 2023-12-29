@@ -14,6 +14,7 @@ This kind of OS is watchdog-friendly. It can be killed at any moment with minima
 - **No GUI- only tty terminal**: Option to disable GUI and remove all GUI components. To enable, set `DISABLE_GUI=1` in `customize_squashfs.sh`
 - **Disable startup delay**: Make the OS-app-container recover faster from a watchdog reset.
 - **Include build-essential**: And any additional .deb files that are placed into /packages/downloaded folder. By default, Tails OS doesn't come with make, gcc etc. With the customization you get GCC 4.9.2 and GNU Make 4.0
+- **Include linux-headers-$(uname -r)**: For tails-i386-2.12 that means I ran: `python3 download_recursive_deps.py linux-headers-4.9.0-0.bpo.2-686`. I found that deb file name in `deb_urls.json` which is created by `update_package_list.py`, by searching for `linux-headers`. This allows to compile kernel drivers on the resulting customized OS.
 - **Run program at boot**: Runs any number of custom executables / scripts at boot, designed for specific operational requirements.
 - **Custom driver**: Load .ko files permanently and by default into the OS
 - **Remove bloatware**: Remove some installed-by-default software such as libre office, tor, and browser.
@@ -83,7 +84,7 @@ The resulting Tails OS won't have internet access. I don't care because in any c
 
 That's why this customization process relies on gathering the .deb files for offline use with `python3 update_package_list.py` and `python3 download_recursive_deps.py build-essential`.
 
-This project stands in a unique position because it adds `build-essential` to Tails OS. This (among other uses) revives old versions of Tails. Without this modification you wouldn't be able to install anything onto Tails 2.12, but now you can install packages from source, or even from the deb packages as long as the package server is still alive. The resulting customized Tails will still be offline, since the Tor keys and software have expired.
+This project stands in a unique position because it adds `build-essential` and linux kernel headers to Tails OS. This (among other uses) revives old versions of Tails. Without this modification you wouldn't be able to install anything onto Tails 2.12, but now you can install packages from source, or even from the deb packages as long as the package server is still alive. The resulting customized Tails will still be offline, since the Tor keys and software have expired.
 
 ## Contributing
 Fork it and do your own thing, each project and individual has their own preferences and requirements for customizations

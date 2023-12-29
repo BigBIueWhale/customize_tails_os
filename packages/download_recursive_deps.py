@@ -21,13 +21,19 @@ def find_url_of_dependency(dependency_name):
     # and won't match:
     # libc6-dev_2.19-18+deb8u7_i386.deb
     matches = [url for url in deb_urls if url.split('/')[-1].split('_')[0] == dependency_name]
+
     if len(matches) > 1:
-        print(f"Error: Multiple matches found for {dependency_name}")
+        # Sort matches in descending lexicographical order
+        matches.sort(reverse=True)
+        # Warn about multiple matches and choosing the highest lexicographical match
+        print(f"Warning: Multiple matches found for {dependency_name}. Choosing the highest lexicographical match.")
         for match in matches:
             print(match)
-        raise ValueError(f"Multiple matches for {dependency_name}")
+        print(f"Chosen: {matches[0]}")
+        return matches[0]
     elif not matches:
         raise ValueError(f"No match found for {dependency_name}")
+
     return matches[0]
 
 def fetch_dependency(dep_name, visited: Set[str]) -> [str]:
