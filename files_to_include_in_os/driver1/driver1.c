@@ -15,3 +15,6 @@ void cleanup_module(void)
 }
 
 MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Your Name");
+MODULE_DESCRIPTION("Example hello world driver 1");
+MODULE_VERSION("0.1");
