@@ -1,0 +1,18 @@
+# Object files
+/*.o
+/*.ko
+/*.mod.*
+
+# Kernel module build artifacts
+/Module.symvers
+/modules.order
+/Module.markers
+
+# Directory created by the build process
+/.tmp_versions/
+
+# Dependency files
+/*.mod
+/*.cmd
+/.cache.mk
+/*.d
