@@ -5,7 +5,7 @@
 # because otherwise you'll be network-blocked.
 
 # Set DISABLE_GUI to 1 to disable GUI, or 0 to keep it enabled
-DISABLE_GUI=1
+DISABLE_GUI=0
 if [ "$DISABLE_GUI" -eq 1 ]; then
     # to disable GUI (but leave a tty terminal):
     sudo apt-get purge xorg* -y
@@ -53,7 +53,6 @@ APPS_TO_REMOVE=(
   "icedove"            # Icedove may now be known as Thunderbird in newer versions.
   "pidgin"             # Assuming pidgin is the package name.
   "keepassx"           # KeePassX package name.
-  "gnome-terminal"     # Terminal might have a different package name like 'x-terminal-emulator'.
   "audacity"
   "bookletimposer"
   "brasero"
