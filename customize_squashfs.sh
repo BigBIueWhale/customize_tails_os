@@ -10,6 +10,13 @@ if [ "$DISABLE_GUI" -eq 1 ]; then
     # to disable GUI (but leave a tty terminal):
     sudo apt-get purge xorg* -y
     sudo apt-get purge gnome* -y
+    sudo apt-get purge metacity -y
+    sudo apt-get purge gcr -y
+    sudo apt-get purge mutter -y
+    
+    # Remove remove all packages with the string "nautilus" in their name,
+    # This also removes packages such as seahorse-nautilus
+    dpkg -l | grep nautilus | awk '{print $2}' | xargs sudo apt-get purge -y
 
     # Only create a default root user if GUI is disabled
     # because this interferes with the welcome screen of the GUI.
@@ -47,6 +54,46 @@ APPS_TO_REMOVE=(
   "pidgin"             # Assuming pidgin is the package name.
   "keepassx"           # KeePassX package name.
   "gnome-terminal"     # Terminal might have a different package name like 'x-terminal-emulator'.
+  "audacity"
+  "bookletimposer"
+  "brasero"
+  "dasher"
+  "evince"
+  "electrum"
+  "evolution"
+  "florence"
+  "gedit"
+  "gimp"
+  "gobby"
+  "torsocks"
+  "gtkhash"
+  "yelp"
+  "ibus-anthy"
+  "ibus-pinyin"
+  "ibus-hangul"
+  "eog"
+  "inkscape"
+  "libreoffice"
+  "liferea"
+  "mat"
+  "onioncircuits"
+  "seahorse"
+  "pitivi"
+  "poedit"
+  "gksu"
+  "scribus"
+  "simple-scan"
+  "sound-juicer"
+  "synaptic"
+  "tails-installer"
+  "traverso"
+  "totem"
+  "vim"
+  "whisperback"
+  "libreoffice*"
+  "myspell*"
+  "uno-libs3"
+  "ure"
 )
 
 # Remove the applications
@@ -57,6 +104,27 @@ done
 
 sudo apt-get autoremove -y
 sudo apt-get clean
+
+# Remove Tor Browser directory since it can't be uninstalled via apt.
+echo "Removing Tor Browser directory..."
+sudo rm -rf /usr/local/lib/tor-browser
+
+echo "Removing Tails documentation"
+sudo rm -rf /usr/share/doc
+
+# Define the shortcuts to remove
+SHORTCUTS_TO_REMOVE=(
+  "unsafe-browser.desktop"
+  "tor-browser.desktop"
+)
+
+# Remove the shortcuts
+for shortcut in "${SHORTCUTS_TO_REMOVE[@]}"; do
+  echo "Removing shortcut $shortcut ..."
+  sudo rm -f /usr/share/applications/$shortcut
+done
+
+echo "Shortcuts removed."
 
 echo Compiling user-provided executables from files_to_include_in_os
 # Save the current working directory

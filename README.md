@@ -1,7 +1,7 @@
 # Customize Tails OS
 
 ## Overview
-This project aims to create a customized version of the Tails OS, known for its strong emphasis on security and privacy. Our version, however, shifts focus from security to functionality and reliability. The primary objective is to develop a Tails OS variant without a GUI that runs a single program- an app-container-os.
+This project aims to create a customized version of the Tails OS, known for its strong emphasis on security and privacy. Our version, however, shifts focus from security to functionality and reliability. The primary objective is to develop a Tails OS that runs a single program- an app-container-os.
 
 The essence of this project lies in leveraging Tails OS's unique feature of not storing data on the disk. This property is exploited to embed custom software into the Tails bootable medium, akin to a hardware-embedded Docker container. The result is a highly reliable system where, upon physical restart, the software functions as if it's running for the first time.
 
@@ -11,7 +11,7 @@ This kind of OS is watchdog-friendly. It can be killed at any moment with minima
 - **Boot from Internal SSD/HDD**: Modifications to allow the OS to live-boot from internal storage devices.
 - **Disabled Security Overheads**: Certain security features have been disabled to prioritize functionality for specific use cases.
 - **Add default root user**: Username: "user", password: "password".
-- **No GUI- only tty terminal**: Stripped-down version of Tails OS without a graphical user interface.
+- **No GUI- only tty terminal**: Option to disable GUI and remove all GUI components. To enable, set `DISABLE_GUI=1` in `customize_squashfs.sh`
 - **Disable startup delay**: Make the OS-app-container recover faster from a watchdog reset.
 - **Include build-essential**: And any additional .deb files that are placed into /packages/downloaded folder. By default, Tails OS doesn't come with make, gcc etc. With the customization you get GCC 4.9.2 and GNU Make 4.0
 - **Run program at boot**: Runs any number of custom executables / scripts at boot, designed for specific operational requirements.
