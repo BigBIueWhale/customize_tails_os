@@ -1,3 +1,2 @@
 1. run_at_boot.sh as root works, and the 2 example programs: program1 and program2 work as well. Test the ko file functionality with a dummy hello_world driver that does printk, placed inside of files_to_include_in_os/driver_files
-2. Remove bloatware such as libre office
-3. Install additional packages from source- cmake for start.
+2. Install additional packages from source- cmake for start.
