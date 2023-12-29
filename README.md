@@ -16,7 +16,7 @@ This kind of OS is watchdog-friendly. It can be killed at any moment with minima
 - **Include build-essential**: And any additional .deb files that are placed into /packages/downloaded folder. By default, Tails OS doesn't come with make, gcc etc. With the customization you get GCC 4.9.2 and GNU Make 4.0
 - **Run program at boot**: Runs any number of custom executables / scripts at boot, designed for specific operational requirements.
 - **Custom driver**: Load .ko files permanently and by default into the OS
-- **Remove bloatware- Planned**: Remove some installed-by-default software such as libre office
+- **Remove bloatware**: Remove some installed-by-default software such as libre office, tor, and browser.
 
 ## Usage Instructions
 1. **System Requirements**:
@@ -46,7 +46,7 @@ This project provides two primary folders for customization, each serving a dist
 
 3. **packages/downloaded**: Delete packages/downloaded and then do `cd packages`. Run `pip3 install -r requirements.txt` `python3 update_package_list.py` `python3 download_recursive_deps.py build-essential gcc make perl add any additional required packages here` assuming you're using `Python 3.10.12` on Pop!OS 22.04. By default this repo already comes with the required .deb packages for installing build-essential and its dependencies, for `tails-i386-2.12.iso`. If you're using a different OS or a different version, you'll have to delete packages/downloaded before downloading any packages, and you'll also need to customize `update_package_list.py` to point to your repo (for example, change `2.12/debian/dists/jessie/main` to `5.5/debian/dists/buster/main`). Also, if you're building a 64-bit Tails OS image you'll need to change `['i386', 'all']` to `['amd64', 'all']` in `update_package_list.py`.
 
-4. **files_to_include_in_os**: Planned- The contents of this folder will be placed in the root directory of the tails-squashfs.
+4. **files_to_include_in_os**: The contents of this folder will be placed in the root directory of the tails-squashfs.
 
 5. **files_to_include_in_os/run_at_boot.sh**: Allows you to perform actions at boot time such as: running executables as root. You're expected to delete the folders: `files_to_include_in_os/program1` and `files_to_include_in_os/program2` and instead place the source code (and build scripts) of your app into `files_to_include_in_os`. Add a commands to compile your program where it says "Compile your program(s) here" in `customize_squashfs.sh`. Make sure to put your program path into `executables` variable in `run_at_boot.sh`, instead of the example program1 and program2.
 
