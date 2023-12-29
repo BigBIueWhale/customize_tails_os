@@ -48,9 +48,9 @@ This project provides two primary folders for customization, each serving a dist
 
 4. **files_to_include_in_os**: Planned- The contents of this folder will be placed in the root directory of the tails-squashfs.
 
-5. **files_to_include_in_os/run_at_boot.sh**: Allows you to perform actions at boot time such as: running executables as root.
+5. **files_to_include_in_os/run_at_boot.sh**: Allows you to perform actions at boot time such as: running executables as root. You're expected to delete the folders: `files_to_include_in_os/program1` and `files_to_include_in_os/program2` and instead place the source code (and build scripts) of your app into `files_to_include_in_os`. Add a commands to compile your program where it says "Compile your program(s) here" in `customize_squashfs.sh`. Make sure to put your program path into `executables` variable in `run_at_boot.sh`, instead of the example program1 and program2.
 
-6. **files_to_include_in_os/driver_files/*.ko**: Any kernel module files in the folder will be placed into the OS. You will have to compile your kernel module from within `sudo chroot ./build/tails-squashfs/` after build-essential has already been installed.
+6. **files_to_include_in_os/driver_files/*.ko**: Any kernel module files in the folder will be placed into the OS. You will have to compile your kernel module where it says: "Add any .ko driver files compilation here" in `customize_squashfs.sh`.
 
 ### Customization Process
 To ensure a streamlined and consistent customization process, Modifications the ISO file structure (and bootloader) should be made to the `customize.sh` script. Modifications to the Tails filesystem (packages, users, files) should be done through `customize_squashfs.sh` which runs as if we're in the OS itself (because of `chroot` command in customize.sh).

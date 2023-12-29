@@ -139,10 +139,13 @@ cd /files_to_include_in_os/program2
 # Call the compile script
 ./compile.sh
 
+# Those program1 and program2 are just examples, delete those lines.
+# Compile your program(s) here
+
 # Return to the original directory
 cd "$original_dir"
 
-# TODO: Add any .ko driver files compilation here
+# Add any .ko driver files compilation here
 # so that the .ko file is compatible with the specific linux kernel
 # version of this Tails OS.
 # Then programmatically copy the resulting .ko file(s) into
