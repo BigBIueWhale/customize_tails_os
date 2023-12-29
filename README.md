@@ -78,5 +78,12 @@ By understanding and carefully managing these two key folders, users can effecti
 ## Disclaimer
 This project is not concerned with the inherent security features of Tails OS. It focuses on the non-persistent storage aspect to ensure the embedded software's reliability and consistency. This customization may compromise the security measures typical of Tails OS, and thus, is not recommended for users seeking a security-focused solution.
 
+## Internet Access
+The resulting Tails OS won't have internet access. I don't care because in any case `tor` stops working after a few years. For example, `tails-i386-2.12.iso` can't connect to the tor network anymore, and therefore can't access the internet when doing apt-get.
+
+That's why this customization process relies on gathering the .deb files for offline use with `python3 update_package_list.py` and `python3 download_recursive_deps.py build-essential`.
+
+This project stands in a unique position because it adds `build-essential` to Tails OS. This (among other uses) revives old versions of Tails. Without this modification you wouldn't be able to install anything onto Tails 2.12, but now you can install packages from source, or even from the deb packages as long as the package server is still alive. The resulting customized Tails will still be offline, since the Tor keys and software have expired.
+
 ## Contributing
 Fork it and do your own thing, each project and individual has their own preferences and requirements for customizations
