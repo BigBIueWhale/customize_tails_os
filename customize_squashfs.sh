@@ -169,12 +169,12 @@ echo Compiling drivers against kernel $kernel_name
 cd /files_to_include_in_os/driver1
 make KERNEL_NAME=$kernel_name
 cp ./driver1.ko /files_to_include_in_os/driver_files/
-make clean
+make KERNEL_NAME=$kernel_name clean
 
 cd /files_to_include_in_os/driver2
 make KERNEL_NAME=$kernel_name
 cp ./driver2.ko /files_to_include_in_os/driver_files/
-make clean
+make KERNEL_NAME=$kernel_name clean
 
 # The driver1 and driver2 are just examples, delete those lines.
 # Add any .ko driver files compilation here
