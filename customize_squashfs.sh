@@ -209,3 +209,20 @@ sudo cp /files_to_include_in_os/driver_files/*.ko $extra_kernel_modules_dir
 echo depmod with kernel name: $kernel_name
 # Run depmod to rebuild the module dependencies
 sudo depmod $kernel_name
+
+# Collect and add custom kernel module names to /etc/modules
+echo "Adding custom kernel modules to /etc/modules so that all of the .ko files are loaded on boot"
+
+# Directory where compiled kernel modules are stored
+compiled_modules_dir="/files_to_include_in_os/driver_files/"
+
+# Find all .ko files and extract module names
+for ko_file in "$compiled_modules_dir"*.ko; do
+    if [ -e "$ko_file" ]; then
+        module_name=$(basename "$ko_file" .ko)
+        echo "$module_name" >> /etc/modules
+        echo "Added module $module_name to /etc/modules."
+    fi
+done
+
+echo "Custom kernel module names added to /etc/modules."
