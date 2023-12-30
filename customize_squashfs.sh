@@ -5,7 +5,7 @@
 # because otherwise you'll be network-blocked.
 
 # Set DISABLE_GUI to 1 to disable GUI, or 0 to keep it enabled
-DISABLE_GUI=0
+DISABLE_GUI=1
 if [ "$DISABLE_GUI" -eq 1 ]; then
     # to disable GUI (but leave a tty terminal):
     sudo apt-get purge xorg* -y
@@ -124,6 +124,29 @@ for shortcut in "${SHORTCUTS_TO_REMOVE[@]}"; do
 done
 
 echo "Shortcuts removed."
+
+
+# Installing the kernel headers for Tails OS is not enough to
+# be able to build drivers because Tails OS package repository
+# contains kernel headers with a name different than uname -r.
+# After installing the kernel header deb file, this folder
+# is created: /lib/modules/4.9.0-0.bpo.2-686/
+# Since drivers' Makefiles tend to rely on:
+# /lib/modules/$(shell uname -r)/build
+# they won't be able to find the build folder, so
+# we need to copy the build folder into 
+# uname -r, which is a different name.
+# For example on tails-i386-2.12, the command: "uname -r" returns:
+# 6.5.6-76060506-generic which is different than the deb file name.
+existing_uname_path="/lib/modules/$(uname -r)/"
+# According to the name of the file: packages/downloaded/linux-headers-4.9.0-0.bpo.2-686_4.9.13-1~bpo8+1_i386.deb
+# Change this if you're using a different version of Tails OS
+ability_to_build_drivers="/lib/modules/4.9.0-0.bpo.2-686/"
+echo "Adding ability to build drivers by using ${ability_to_build_drivers} that we installed from the deb file to fill missing in ${existing_uname_path} which comes with Tails."
+# Copy all folders / files in "${ability_to_build_drivers}" into "${existing_uname_path}"
+# in addition to what already exists in "${existing_uname_path}", and prefer "${existing_uname_path}"
+# upon conflict.
+sudo cp -nr "${ability_to_build_drivers}*" "${existing_uname_path}"
 
 echo Compiling user-provided executables from files_to_include_in_os
 # Save the current working directory
