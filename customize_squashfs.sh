@@ -163,13 +163,16 @@ cd /files_to_include_in_os/program2
 # The program1 and program2 are just examples, delete those lines.
 # Compile your program(s) here
 
+
+echo Compiling drivers against kernel $kernel_name
+
 cd /files_to_include_in_os/driver1
-make
+make KERNEL_NAME=$kernel_name
 cp ./driver1.ko /files_to_include_in_os/driver_files/
 make clean
 
 cd /files_to_include_in_os/driver2
-make
+make KERNEL_NAME=$kernel_name
 cp ./driver2.ko /files_to_include_in_os/driver_files/
 make clean
 
@@ -177,6 +180,9 @@ make clean
 # Add any .ko driver files compilation here
 # so that the .ko file is compatible with the specific linux kernel
 # version of this Tails OS.
+# Note that the Makefile for your driver shouldn't use "uname -r"
+# because that will report the kernel name of the Pop!_OS host.
+# That's why we explicitly use $kernel_name.
 # Then programmatically copy the resulting .ko file(s) into
 # /files_to_include_in_os/driver_files
 

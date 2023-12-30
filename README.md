@@ -36,6 +36,17 @@ This kind of OS is watchdog-friendly. It can be killed at any moment with minima
    - **Input**: The script expects `tails-i386-2.12.iso` in the project's root directory.
    - **Output**: The customized Tails OS ISO is output as `custom_tails.iso` in the `./build/` directory.
 
+## Testing
+1. Create a VirtualBox 7.0.8 virtual machine and choose "Debian (32-bit)" (or use 64-bit if you're using a 64-bit version of Tails OS).
+2. Attach the generated iso file to the VM during configuration time
+3. Give the VM 2 CPU cores and 2 GB of RAM
+4. Boot into the Tails OS tty terminal login page
+5. Login with credentials: "user" -> "password"
+6. Enter a root terminal: `sudo su`
+7. Navigate: `cd /files_to_include_in_os/program1/build/`
+8. Check that there's a file: "executable1.log.txt" with counter being appended every second. Run `cat executable1.log.txt` multiple times to see the counter going up. If you see that, it means that run_at_boot.sh works
+9. Check the kernel drivers, run: `dmesg | tail -n 5` to see a hello message from driver1 and driver2. That means they were loaded successfully on boot, and are now part of the OS
+
 ## Customize
 
 ### Overview of Customization Folders
@@ -47,9 +58,9 @@ This project provides two primary folders for customization, each serving a dist
 
 3. **packages/downloaded**: Delete packages/downloaded and then do `cd packages`. Run `pip3 install -r requirements.txt` `python3 update_package_list.py` `python3 download_recursive_deps.py build-essential gcc make perl add any additional required packages here` assuming you're using `Python 3.10.12` on Pop!OS 22.04. By default this repo already comes with the required .deb packages for installing build-essential and its dependencies, for `tails-i386-2.12.iso`. If you're using a different OS or a different version, you'll have to delete packages/downloaded before downloading any packages, and you'll also need to customize `update_package_list.py` to point to your repo (for example, change `2.12/debian/dists/jessie/main` to `5.5/debian/dists/buster/main`). Also, if you're building a 64-bit Tails OS image you'll need to change `['i386', 'all']` to `['amd64', 'all']` in `update_package_list.py`. Also, you'll need to run `python3 download_recursive_deps.py build-essential linux-headers-4.9.0-0.bpo.2-686`. The exact linux-headers version you'll find based on the instructions in "Include linux-headers-$(uname -r)" section of this readme. Finally, update the line in `customize_squashfs.sh`:
 ```sh
-ability_to_build_drivers="/lib/modules/4.9.0-0.bpo.2-686/"
+matching_dirs=($(find . -maxdepth 1 -type d -name "*-686"))
 ```
-to point to your linux-headers version (name according to the deb file name).
+to amd64 if your iso file is 64-bits.
 
 4. **files_to_include_in_os**: The contents of this folder will be placed in the root directory of the tails-squashfs.
 
