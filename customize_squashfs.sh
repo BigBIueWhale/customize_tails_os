@@ -146,7 +146,12 @@ echo "Adding ability to build drivers by using ${ability_to_build_drivers} that 
 # Copy all folders / files in "${ability_to_build_drivers}" into "${existing_uname_path}"
 # in addition to what already exists in "${existing_uname_path}", and prefer "${existing_uname_path}"
 # upon conflict.
-sudo cp -nr "${ability_to_build_drivers}*" "${existing_uname_path}"
+sudo cp -nr "${ability_to_build_drivers}." "${existing_uname_path}"
+
+# After installing the kernel headers, at runtime "uname -r" will print
+# 4.9.0-0.bpo.2-amd64 unless we remove these files.
+# Essentially, we're avoiding changing the uname.
+sudo rm /boot/config-*
 
 echo Compiling user-provided executables from files_to_include_in_os
 # Save the current working directory
