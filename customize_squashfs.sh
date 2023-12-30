@@ -126,32 +126,29 @@ done
 echo "Shortcuts removed."
 
 
-# Installing the kernel headers for Tails OS is not enough to
-# be able to build drivers because Tails OS package repository
-# contains kernel headers with a name different than uname -r.
-# After installing the kernel header deb file, this folder
-# is created: /lib/modules/4.9.0-0.bpo.2-686/
-# Since drivers' Makefiles tend to rely on:
-# /lib/modules/$(shell uname -r)/build
-# they won't be able to find the build folder, so
-# we need to copy the build folder into 
-# uname -r, which is a different name.
-# For example on tails-i386-2.12, the command: "uname -r" returns:
-# 6.5.6-76060506-generic which is different than the deb file name.
-existing_uname_path="/lib/modules/$(uname -r)/"
-# According to the name of the file: packages/downloaded/linux-headers-4.9.0-0.bpo.2-686_4.9.13-1~bpo8+1_i386.deb
-# Change this if you're using a different version of Tails OS
-ability_to_build_drivers="/lib/modules/4.9.0-0.bpo.2-686/"
-echo "Adding ability to build drivers by using ${ability_to_build_drivers} that we installed from the deb file to fill missing in ${existing_uname_path} which comes with Tails."
-# Copy all folders / files in "${ability_to_build_drivers}" into "${existing_uname_path}"
-# in addition to what already exists in "${existing_uname_path}", and prefer "${existing_uname_path}"
-# upon conflict.
-sudo cp -nr "${ability_to_build_drivers}." "${existing_uname_path}"
+cd /lib/modules
 
-# After installing the kernel headers, at runtime "uname -r" will print
-# 4.9.0-0.bpo.2-amd64 unless we remove these files.
-# Essentially, we're avoiding changing the uname.
-sudo rm /boot/config-*
+# Find directories ending with -686 (use amd64 if your iso is 64-bit)
+matching_dirs=($(find . -maxdepth 1 -type d -name "*-686"))
+
+# Count the matching directories
+dir_count=${#matching_dirs[@]}
+
+# Check if there's more than one matching directory
+if [ "$dir_count" -gt 1 ]; then
+    echo "Error: More than one match found."
+    exit 1
+elif [ "$dir_count" -eq 0 ]; then
+    echo "Error: No match found."
+    exit 1
+fi
+
+# Store the path in a variable
+kernel_dir_path="/lib/modules/${matching_dirs[0]#./}"
+
+echo Equivalent of "/lib/modules/\$(shell uname -r)" found: $kernel_dir_path
+
+kernel_name=$(basename "$kernel_dir_path")
 
 echo Compiling user-provided executables from files_to_include_in_os
 # Save the current working directory
@@ -190,14 +187,19 @@ cd "$original_dir"
 sed -i '/^exit 0/i /files_to_include_in_os/run_at_boot.sh' /etc/rc.local
 
 # Make sure /etc/rc.local is executable
-chmod +x /etc/rc.local
+sudo chmod +x /etc/rc.local
 
 
+extra_kernel_modules_dir="${kernel_dir_path}/extra/"
+
+echo Create kernel modules dir: $extra_kernel_modules_dir
 # Create the directory for extra modules if it doesn't exist
-mkdir -p /lib/modules/$(uname -r)/extra
+sudo mkdir -p $extra_kernel_modules_dir
 
+echo Copy ko files to $extra_kernel_modules_dir
 # Copy the .ko files from the driver_files folder to the extra modules directory
-cp /files_to_include_in_os/driver_files/*.ko /lib/modules/$(uname -r)/extra/
+sudo cp /files_to_include_in_os/driver_files/*.ko $extra_kernel_modules_dir
 
+echo depmod with kernel name: $kernel_name
 # Run depmod to rebuild the module dependencies
-depmod
+sudo depmod $kernel_name
