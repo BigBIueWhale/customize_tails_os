@@ -45,7 +45,7 @@ This kind of OS is watchdog-friendly. It can be killed at any moment with minima
 6. Enter a root terminal: `sudo su`
 7. Navigate: `cd /files_to_include_in_os/program1/build/`
 8. Check that there's a file: "executable1.log.txt" with counter being appended every second. Run `cat executable1.log.txt` multiple times to see the counter going up. If you see that, it means that run_at_boot.sh works
-9. Check the kernel drivers, run: `dmesg | tail -n 5` to see a hello message from driver1 and driver2. That means they were loaded successfully on boot, and are now part of the OS
+9. Check the kernel drivers, run: `dmesg | grep -i "to kernel log"` to see a hello message from driver1 and driver2. That means they were loaded successfully on boot, and are now part of the OS
 
 ## Customize
 
