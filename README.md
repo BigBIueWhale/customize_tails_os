@@ -112,6 +112,7 @@ This project stands in a unique position because it adds `build-essential` and l
 matching_dirs=($(find . -maxdepth 1 -type d -name "*-686"))
 ```
 to amd64 if your iso file is 64-bits.
+
 10. Remove the code section that acheives the goal of: "Force the OS to boot in 32-bit (x86) mode" in `customize.sh` if you're targeted a x64 iso, or if you just don't like that behaviour.
 
 ## Contributing
