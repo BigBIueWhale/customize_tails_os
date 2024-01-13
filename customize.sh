@@ -26,6 +26,28 @@ else
     echo "Failed to update the timeout setting in $CONFIG_FILE"
 fi
 
+
+# Force the OS to boot in 32-bit (x86) mode.
+# This is important for any user-provided drivers
+# that assume a 32-bit architecture.
+
+isolinux_cfg_path="./build/customized_tails/isolinux/isolinux.cfg"
+
+# Check if the isolinux.cfg file exists
+if [[ -f "$isolinux_cfg_path" ]]; then
+    # Modify the isolinux.cfg to force a 32-bit boot
+    sed -i '/label select_menu/,/prompt 0/d' "$isolinux_cfg_path"
+    echo 'label live' >> "$isolinux_cfg_path"
+    echo '    kernel vesamenu.c32' >> "$isolinux_cfg_path"
+    echo '    append live486.cfg' >> "$isolinux_cfg_path"
+    echo 'default live' >> "$isolinux_cfg_path"
+    echo 'prompt 0' >> "$isolinux_cfg_path"
+
+    echo "The isolinux.cfg file has been modified to force a 32-bit boot."
+else
+    echo "Error: The isolinux.cfg file does not exist at the specified path."
+fi
+
 # Define the path to the script and the target chroot directory
 script_path="./customize_squashfs.sh"
 downloaded_path="./packages/downloaded/"

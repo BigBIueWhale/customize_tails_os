@@ -18,6 +18,7 @@ This kind of OS is watchdog-friendly. It can be killed at any moment with minima
 - **Run program at boot**: Runs any number of custom executables / scripts at boot, designed for specific operational requirements.
 - **Custom driver**: Load .ko files permanently and by default into the OS
 - **Remove bloatware**: Remove some installed-by-default software such as libre office, tor, and browser.
+- **Force 32-bits boot**: Remove the default behaviour that the 32-bit Tails release has to boot in 64-bit mode if it detects the the CPU is actually 64 bits. This is to consistently support drivers compiled into the OS.
 
 ## Usage Instructions
 1. **System Requirements**:
@@ -56,11 +57,7 @@ This project provides two primary folders for customization, each serving a dist
 
 2. **build/tails-squashfs**: This folder contains the SquashFS filesystem, extracted from the original Tails ISO. SquashFS is a compressed, read-only filesystem used in Tails OS. Modifications in this folder are more in-depth and relate to the OS's core functionalities and structure. Use `sudo chroot ./build/tails-squashfs/` to enter a terminal where you can remove specific packages that you don't want (using `sudo apt-get remove`).
 
-3. **packages/downloaded**: Delete packages/downloaded and then do `cd packages`. Run `pip3 install -r requirements.txt` `python3 update_package_list.py` `python3 download_recursive_deps.py build-essential gcc make perl add any additional required packages here` assuming you're using `Python 3.10.12` on Pop!OS 22.04. By default this repo already comes with the required .deb packages for installing build-essential and linux-headers, for `tails-i386-2.12.iso`. If you're using a different OS or a different version, you'll have to delete packages/downloaded before downloading any packages, and you'll also need to customize `update_package_list.py` to point to your repo (for example, change `2.12/debian/dists/jessie/main` to `5.5/debian/dists/buster/main`). Also, if you're building a 64-bit Tails OS image you'll need to change `['i386', 'all']` to `['amd64', 'all']` in `update_package_list.py`. Also, you'll need to run `python3 download_recursive_deps.py build-essential linux-headers-4.9.0-0.bpo.2-686`. The exact linux-headers version you'll find based on the instructions in "Include linux-headers-$(uname -r)" section of this readme. Finally, update the line in `customize_squashfs.sh`:
-```sh
-matching_dirs=($(find . -maxdepth 1 -type d -name "*-686"))
-```
-to amd64 if your iso file is 64-bits.
+3. **packages/downloaded**: By default this repo already comes with the required .deb packages for installing build-essential and linux-headers for `tails-i386-2.12.iso`, If you're using a different OS or a different version or architecture, follow the guide in "Change target tails version or machine architecture".
 
 4. **files_to_include_in_os**: The contents of this folder will be placed in the root directory of the tails-squashfs.
 
@@ -100,6 +97,22 @@ The resulting Tails OS won't have internet access. I don't care because in any c
 That's why this customization process relies on gathering the .deb files for offline use with `python3 update_package_list.py` and `python3 download_recursive_deps.py build-essential`.
 
 This project stands in a unique position because it adds `build-essential` and linux kernel headers to Tails OS. This (among other uses) revives old versions of Tails. Without this modification you wouldn't be able to install anything onto Tails 2.12, but now you can install packages from source, or even from the deb packages as long as the package server is still alive. The resulting customized Tails will still be offline, since the Tor keys and software have expired.
+
+## Change target tails version or machine architecture (x64)
+1. Make sure you're host is Pop!OS 22.04 with `Python 3.10.12` installed and with internet access.
+2. Place your iso file at the root directory as the project.
+3. Change ISO_PATH in `extract_iso.sh`.
+4. Delete packages/downloaded
+5. Customize `update_package_list.py` to point to your repo (for example, change `2.12/debian/dists/jessie/main` to `5.5/debian/dists/buster/main`)
+6. If you're building a 64-bit Tails OS image you'll need to change `['i386', 'all']` to `['amd64', 'all']` in `update_package_list.py`
+7. `cd packages`. Run `pip3 install -r requirements.txt` `python3 update_package_list.py`
+8. Run `python3 download_recursive_deps.py build-essential linux-headers-4.9.0-0.bpo.2-686`. The exact linux-headers version you'll find based on the instructions in "Include linux-headers-$(uname -r)" section of this readme.
+9. Update the line in `customize_squashfs.sh`:
+```sh
+matching_dirs=($(find . -maxdepth 1 -type d -name "*-686"))
+```
+to amd64 if your iso file is 64-bits.
+10. Remove the code section that acheives the goal of: "Force the OS to boot in 32-bit (x86) mode" in `customize.sh` if you're targeted a x64 iso, or if you just don't like that behaviour.
 
 ## Contributing
 Fork it and do your own thing, each project and individual has their own preferences and requirements for customizations
