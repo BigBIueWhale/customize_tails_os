@@ -7,6 +7,9 @@ The essence of this project lies in leveraging Tails OS's unique feature of not 
 
 This kind of OS is watchdog-friendly. It can be killed at any moment with minimal risk of corruption, which allows for high reliability.
 
+## Releases
+Check any of the release branches (not tags) in the format: RLS_Major_Minor_Patch_Year_Month_Day. For example: `RLS_01_00_00_2023_01_13`.
+
 ## Implemented Customizations
 - **Boot from Internal SSD/HDD**: Modifications to allow the OS to live-boot from internal storage devices.
 - **Disabled Security Overheads**: Certain security features have been disabled to prioritize functionality for specific use cases.
