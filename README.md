@@ -15,13 +15,15 @@ Check any of the release branches (not tags) in the format: RLS_Major_Minor_Patc
 - **Disabled Security Overheads**: Certain security features have been disabled to prioritize functionality for specific use cases.
 - **Add default root user**: Username: "user", password: "password".
 - **No GUI- only tty terminal**: Option to disable GUI and remove all GUI components. To enable, set `DISABLE_GUI=1` in `customize_squashfs.sh`
-- **Disable startup delay**: Make the OS-app-container recover faster from a watchdog reset.
+- **Disable startup delay** [BROKEN]: Make the OS-app-container recover faster from a watchdog reset.
 - **Include build-essential**: And any additional .deb files that are placed into /packages/downloaded folder. By default, Tails OS doesn't come with make, gcc etc. With the customization you get GCC 4.9.2 and GNU Make 4.0
 - **Include linux-headers-$(uname -r)**: For tails-i386-2.12 that means I ran: `python3 download_recursive_deps.py linux-headers-4.9.0-0.bpo.2-686`. I found that deb file name in `deb_urls.json` which is created by `update_package_list.py`, by searching for `linux-headers`. This allows to compile kernel drivers on the resulting customized OS.
 - **Run program at boot**: Runs any number of custom executables / scripts at boot, designed for specific operational requirements.
 - **Custom driver**: Load .ko files permanently and by default into the OS
 - **Remove bloatware**: Remove some installed-by-default software such as libre office, tor, and browser.
 - **Force 32-bits boot**: Remove the default behaviour that the 32-bit Tails release has to boot in 64-bit mode if it detects the the CPU is actually 64 bits. This is to consistently support drivers compiled into the OS.
+- **Install newer version of e2fsck** [PLANNED]: Support the newest version of ext4 for use in commands such as: `sudo fsck.ext4 -f /dev/sda1`. To avoid errors such as: https://askubuntu.com/a/808650 This is for systems that need another partition / drive alongside the read-only Tails OS, for storage of persistent data. The ext4 partition can become corrupted, but Tails OS 2.12 comes with an old version of fsck tool (2014 version).
+
 
 ## Usage Instructions
 1. **System Requirements**:
