@@ -97,6 +97,8 @@ By understanding and carefully managing these two key folders, users can effecti
 This project is not concerned with the inherent security features of Tails OS. It focuses on the non-persistent storage aspect to ensure the embedded software's reliability and consistency. This customization may compromise the security measures typical of Tails OS, and thus, is not recommended for users seeking a security-focused solution.
 
 ## Internet Access
+No networking at all is supported.
+
 The resulting Tails OS won't have internet access. I don't care because in any case `tor` stops working after a few years. For example, `tails-i386-2.12.iso` can't connect to the tor network anymore, and therefore can't access the internet when doing apt-get.
 
 That's why this customization process relies on gathering the .deb files for offline use with `python3 update_package_list.py` and `python3 download_recursive_deps.py build-essential`.
