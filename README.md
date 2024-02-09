@@ -24,6 +24,9 @@ Check any of the release branches (not tags) in the format: RLS_Major_Minor_Patc
 - **Force 32-bits boot**: Remove the default behaviour that the 32-bit Tails release has to boot in 64-bit mode if it detects the the CPU is actually 64 bits. This is to consistently support drivers compiled into the OS.
 - **Install newer version of e2fsck** [PLANNED]: Support the newest version of ext4 for use in commands such as: `sudo fsck.ext4 -f /dev/sda1`. To avoid errors such as: https://askubuntu.com/a/808650 This is for systems that need another partition / drive alongside the read-only Tails OS, for storage of persistent data. The ext4 partition can become corrupted, but Tails OS 2.12 comes with an old version of fsck tool (2014 version).
 
+## Limitations
+* **No networking**- Applications that use libpcap, TCP, UDP, won't work (at least for communicating with external devices)
+* **No error correction or checksums**- The OS boots in read-only mode from a software perspective, but there's no protection against a single bit flip at the hardware level (single event upset), and no protection of a single sector of a hard drive going bad. Rufus creates a FAT32 partition by default, which has no error correction or checksums. I recommend using read-only Flash technology such as QSPI for hardware-level guaranteed of immutability.
 
 ## Usage Instructions
 1. **System Requirements**:
@@ -52,6 +55,11 @@ Check any of the release branches (not tags) in the format: RLS_Major_Minor_Patc
 7. Navigate: `cd /files_to_include_in_os/program1/build/`
 8. Check that there's a file: "executable1.log.txt" with counter being appended every second. Run `cat executable1.log.txt` multiple times to see the counter going up. If you see that, it means that run_at_boot.sh works
 9. Check the kernel drivers, run: `dmesg | grep -i "to kernel log"` to see a hello message from driver1 and driver2. That means they were loaded successfully on boot, and are now part of the OS
+
+## Usage
+Take the resulting ISO file and burn it onto a CD / DVD / Flash Drive / SD Card / Internal SSD / Hard Drive / Read-only Flash using software such as: `rufus-4.3` or `Win32 Disk Imager` for Windows 10 OS.
+
+I tested on Rufus- Make sure to give Rufus online access during burn so it can download additional Linux kernel files to make the drive bootable.
 
 ## Customize
 
